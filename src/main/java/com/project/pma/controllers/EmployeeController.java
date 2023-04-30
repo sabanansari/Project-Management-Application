@@ -1,5 +1,7 @@
 package com.project.pma.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,7 +25,7 @@ public class EmployeeController {
 		Employee emp = new Employee();
 		model.addAttribute("emp",emp);
 		
-		return "new-employee";
+		return "employees/new-employee";
 	}
 	
 	@PostMapping("/save")
@@ -33,5 +35,14 @@ public class EmployeeController {
 		
 		//redirecting to prevent duplicate submission
 		return "redirect:/employees/new";
+	}
+	
+	@GetMapping
+	public String displayHome(Model model) {
+		
+		List<Employee> employees = empRepo.findAll();
+		model.addAttribute("employees",employees);
+		
+		return "employees/list-employees";
 	}
 }

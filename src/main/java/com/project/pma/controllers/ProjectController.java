@@ -1,5 +1,7 @@
 package com.project.pma.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,7 +26,7 @@ public class ProjectController {
 		
 		model.addAttribute("project",aProject);
 		
-		return "new-project";
+		return "projects/new-project";
 	}
 	
 	@PostMapping("/save")
@@ -34,6 +36,15 @@ public class ProjectController {
 		
 		//use a redirect to prevent duplicate submissions
 		return "redirect:/projects/new";
+	}
+	
+	@GetMapping
+	public String displayHome(Model model) {
+		
+		List<Project> projects = proRepo.findAll();
+		model.addAttribute("projects",projects);
+		
+		return "projects/list-projects";
 	}
 	
 }
