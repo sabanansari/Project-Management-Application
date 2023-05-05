@@ -1,9 +1,16 @@
 package com.project.pma.entities;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 
 @Entity
 public class Employee {
@@ -16,6 +23,10 @@ public class Employee {
 	private String lastName;
 	private String email;
 	
+	@ManyToMany(cascade= {CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH,CascadeType.PERSIST},fetch = FetchType.LAZY)
+	@JoinTable(name="project_employee", joinColumns=@JoinColumn(name="employee_id"),inverseJoinColumns=@JoinColumn(name="project_id"))
+	private List<Project> projects;
+	
 	public Employee() {
 		
 	}
@@ -26,6 +37,19 @@ public class Employee {
 		this.lastName = lastName;
 		this.email = email;
 	}
+	
+	
+	
+
+
+	public List<Project> getProjects() {
+		return projects;
+	}
+
+	public void setProjects(List<Project> projects) {
+		this.projects = projects;
+	}
+
 	public long getEmployeeId() {
 		return employeeId;
 	}
