@@ -1,5 +1,6 @@
 package com.project.pma.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -16,7 +17,7 @@ import jakarta.persistence.ManyToMany;
 public class Project {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long projectId;
 	private String name;
 	
@@ -29,8 +30,8 @@ public class Project {
 	private List<Employee> employees;
 	
 	public Project(){
-		
-	}
+		    
+	} 
 	
 	public Project(String name, String stage, String description) {
 		super();
@@ -47,6 +48,13 @@ public class Project {
 
 	public void setEmployees(List<Employee> employees) {
 		this.employees = employees;
+	}
+	
+	public void addEmployee(Employee employee) {
+		if(employees == null) {
+			employees = new ArrayList<>();
+		}
+		employees.add(employee);
 	}
 
 	public long getProjectId() {
