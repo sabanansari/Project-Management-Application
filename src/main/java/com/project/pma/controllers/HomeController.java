@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,9 @@ import com.project.pma.entities.Project;
 @Controller
 public class HomeController {
 	
+	@Value("${version}") 
+	private String versionVal;
+	
 	@Autowired
 	ProjectRepository proRepo;
 	
@@ -29,12 +33,15 @@ public class HomeController {
 	@GetMapping("/")
 	public String displayHome(Model model) throws JsonProcessingException {
 		
+		model.addAttribute("versionNumber", versionVal);
+		
 		Map<String,Object> map = new HashMap<>();
 		
 		List<Project> projects = proRepo.findAll();
 		model.addAttribute("projects",projects);
 		
 		List<ChartData> projectData = proRepo.getProjectStatus();
+		
 		
 		// Lets convert projectData object into a json structure for use in javascript
 		ObjectMapper objectMapper = new ObjectMapper();
