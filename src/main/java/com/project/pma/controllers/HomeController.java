@@ -21,7 +21,7 @@ import com.project.pma.entities.Project;
 @Controller
 public class HomeController {
 	
-	@Value("${version}") 
+	@Value("${dversion}") 
 	private String versionVal;
 	
 	@Autowired
