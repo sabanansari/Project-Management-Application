@@ -29,5 +29,7 @@ public interface EmployeeRepository extends PagingAndSortingRepository<Employee,
 
 	public void deleteById(Long id);
 	
-//	public Employee findByEmployeeId(long id);
+	public Employee findByEmployeeId(long id);
+
+	public void delete(Employee emp);
 }

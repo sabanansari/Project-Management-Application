@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.project.pma.dto.ChartData;
+import com.project.pma.dto.TimeChartData;
 import com.project.pma.entities.Project;
 
 public interface ProjectRepository extends PagingAndSortingRepository<Project, Long>{
@@ -24,5 +25,15 @@ public interface ProjectRepository extends PagingAndSortingRepository<Project, L
 
 
 	public void deleteById(Long id);
+
+
+	public Project findByProjectId(long id);
+
+
+	public void delete(Project proj);
+	
+	
+	@Query(nativeQuery = true, value="SELECT name as name, start_date as startDate, end_date as endDate from project")
+	public List<TimeChartData> getTimeData();
 	
 }

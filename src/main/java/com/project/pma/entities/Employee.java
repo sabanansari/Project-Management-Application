@@ -16,7 +16,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -27,15 +27,15 @@ public class Employee {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="employee_seq")
 	private long employeeId;
 	
-	@NotNull
+	@NotBlank(message="Must give a first name")
 	@Size(min=2, max=50)
 	private String firstName;
 	
-	@NotNull
+	@NotBlank(message="Must give a last name")
 	@Size(min=1, max=50)
 	private String lastName;
 	
-	@NotNull
+	@NotBlank(message="Must be a valid email")
 	@Email
 	@UniqueValue
 	private String email;

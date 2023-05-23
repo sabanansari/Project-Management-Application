@@ -1,7 +1,10 @@
 package com.project.pma.entities;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -15,6 +18,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.SequenceGenerator;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Project {
@@ -28,6 +32,15 @@ public class Project {
 	private String stage;     //NOTSTARTED, COMPLETED, INPROGRESS
 	
 	private String description;
+	
+	
+	@NotNull(message = "date cannot be empty")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date startDate;
+	
+	@NotNull(message = "date cannot be empty")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date endDate;
 	
 	@ManyToMany(cascade= {CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH,CascadeType.PERSIST},fetch = FetchType.LAZY)
 	@JoinTable(name="project_employee", joinColumns=@JoinColumn(name="project_id"),inverseJoinColumns=@JoinColumn(name="employee_id"))
@@ -92,6 +105,22 @@ public class Project {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 
 //	public Project get() {
